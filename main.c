@@ -21,6 +21,7 @@ void listarSalaAVL();//exibe salas em ordem crescente
 void adicionarReservaHeap(); //inserir uma reserva na heap de prioridades
 void atualizarPrioridadeHeap();//Altera prioridade de uma reserva existente
 void listarReservaHeap();//exibir todas as reservas em ordem de prioridade
+//MaxHeap* criarMaxHeap(int capacidade);
 
 //Hash(Gestao de estados)
 void bloquearSalaHash();//alterar o estado de uma sala para bloqueada
