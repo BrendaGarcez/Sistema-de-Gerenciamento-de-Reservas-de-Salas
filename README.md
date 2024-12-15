@@ -75,6 +75,3 @@ Desenvolver um sistema para:
 1. Compile o código com um compilador C (ex.: `gcc`).
 2. Certifique-se de ter os arquivos de entrada no formato correto.
 3. Execute o programa e verifique o arquivo de saída para os logs.
-
-
-Se precisar de ajustes ou quer adicionar mais detalhes, como instruções específicas de compilação ou exemplo de arquivos, é só avisar! 😊
