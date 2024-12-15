@@ -8,11 +8,16 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include "avl.h"
+#include "heap.h"
+#include "hash.h"
+
+No* criarNo(int codigoSala, int capacidade);
 
 //Funcoes por arvore
 //(é utilizada para organizar e armazenar as informações das salas de forma balanceada, busca inserção e remoção eficiente)
 //AVL(Gestão de sala)
-void inserirSalaAVL();//add novas salas
+//add novas salas
 void removerSalaAVL();//exclui salas existentes
 void buscarSalaAVL();//busca pelo código da sala
 void listarSalaAVL();//exibe salas em ordem crescente
@@ -28,11 +33,27 @@ void bloquearSalaHash();//alterar o estado de uma sala para bloqueada
 void desbloquearSalaHash();//alterar o estado de uma sala para disponivel
 void consultarEstadoHash();//Listar todas as salas por estado atual
 
-
 /// Estruturas gerais
 void cancelarReserva();
 void encerrarSistema(); //Remover todas as informaçoes das salas e reservas antes de finalizar o sistema
+
+
 int main() {
-    printf("Olá, Mundo!\n");
+    printf("Ola, Mundo!\n");
     return 0;
+}
+
+No* criarNo(int codigoSala, int capacidade) {
+    No* novoNo = (No*)malloc(sizeof(No));
+    if (novoNo == NULL) {
+        printf("Erro ao alocar memória.\n");
+        exit(1);
+    }
+    novoNo->codigoSala = codigoSala;
+    novoNo->capacidade = capacidade;
+    novoNo->altDireita = 0;
+    novoNo->altEsquerda = 0;
+    novoNo->direita = NULL;
+    novoNo->esquerda = NULL;
+    return novoNo;
 }
