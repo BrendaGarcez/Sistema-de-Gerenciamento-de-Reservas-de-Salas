@@ -2,7 +2,22 @@
 #include <stdlib.h>
 #include "avl.h"
 
-// Função para inserir uma sala na árvore AVL
+
+No* criarNo(int codigoSala, int capacidade) {
+    No* novoNo = (No*)malloc(sizeof(No));
+    if (novoNo == NULL) {
+        printf("Erro ao alocar memória.\n");
+        exit(1);
+    }
+    novoNo->codigoSala = codigoSala;
+    novoNo->capacidade = capacidade;
+    novoNo->altDireita = 0;
+    novoNo->altEsquerda = 0;
+    novoNo->direita = NULL;
+    novoNo->esquerda = NULL;
+    return novoNo;
+}
+
 No* inserirNoAVL(No* raiz, int codigoSala, int capacidade) {
     if (raiz == NULL) {
         return criarNo(codigoSala, capacidade); // Cria e retorna um novo nó se a raiz for NULL
@@ -39,18 +54,15 @@ No* inserirNoAVL(No* raiz, int codigoSala, int capacidade) {
 }
 
 // Função principal para inserir uma sala (pode ser chamada no programa principal)
-void inserirSalaAVL() {
-    static No* raiz = NULL; // Raiz estática para manter o estado da árvore
-    int codigoSala, capacidade;
-
+No* inserirSalaAVL(No* raiz, int codigoSala, int capacidade) {
     printf("Digite o código da sala: ");
     scanf("%d", &codigoSala);
     printf("Digite a capacidade da sala: ");
     scanf("%d", &capacidade);
 
     raiz = inserirNoAVL(raiz, codigoSala, capacidade);
-
     printf("Sala %d com capacidade %d inserida com sucesso!\n", codigoSala, capacidade);
+    return raiz;
 }
 
 // Função para remover uma sala da árvore AVL
@@ -66,21 +78,6 @@ void buscarSalaAVL() {
 // Função para listar as salas em ordem crescente
 void listarSalaAVL() {
     printf("Função para listar salas AVL ainda não implementada.\n");
-}
-
-No* criarNo(int codigoSala, int capacidade) {
-    No* novoNo = (No*)malloc(sizeof(No));
-    if (novoNo == NULL) {
-        printf("Erro ao alocar memória.\n");
-        exit(1);
-    }
-    novoNo->codigoSala = codigoSala;
-    novoNo->capacidade = capacidade;
-    novoNo->altDireita = 0;
-    novoNo->altEsquerda = 0;
-    novoNo->direita = NULL;
-    novoNo->esquerda = NULL;
-    return novoNo;
 }
 
 No* rotacaoEsquerda(No* no) {

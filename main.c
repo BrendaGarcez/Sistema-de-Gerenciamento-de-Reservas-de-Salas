@@ -15,6 +15,7 @@
 #include "heap.h"
 #include "hash.h"
 
+void menu(FILE *entrada, FILE *saida, AVL *avl, Heap *heap, HashTable *hash);
 void encerrarSistema(No* raizAVL, MaxHeap* heap, HashTabela* tabelaHash);
 
 //Funcoes por arvore
@@ -57,9 +58,97 @@ int main() {
         return 1;
     }
 
-    printf("teste!\n");
-    getchar();  // Aguarda a entrada do usuário
+     // Inicialização das estruturas de dados
+    No *avl = inicializarAVL();
+    No *heap = inicializarHeap();
+    HashTabela *hash = inicializarHashTable();
+
+    // Processar operações
+    menu(entrada, saida, avl, heap, hash);
+
+    // Encerrar e liberar memória
+    liberarAVL(avl);
+    liberarHeap(heap);
+    liberarHashTable(hash);
+
+    fclose(entrada);
+    fclose(saida);
+    printf("Operações concluídas com sucesso.\n");
+    getchar(); 
     return 0;
+}
+
+void menu(FILE *entrada, FILE *saida, No *avl, No *heap, HashTabela *hash) {
+
+    char comando[30];
+    int codigo, capacidade, prioridade;
+    
+    ///Leitura de arquivo de entrada até a ultima linha
+    while (!feof(entrada)) {
+        fscanf(entrada, "%s", comando);
+        if (strcmp(comando, "CRIAR_SALA") == 0) {
+            fscanf(entrada, "%s %d %d", &codigo, &capacidade);
+            if (inserirSalaAVL(avl, codigo, capacidade)) {
+                printf("Sala %d criada com sucesso.\n", codigo);
+                fprintf(saida, "Sala %d criada com sucesso.\n", codigo);
+                inserirEstadoHash(hash, codigo, "disponivel");
+            } else {
+                printf("Erro ao criar sala %d.\n", codigo);
+                fprintf(saida, "Erro ao criar sala %d.\n", codigo);
+            }
+        }
+        else if (strcmp(comando, "RESERVAR_SALA") == 0) {
+            fscanf(entrada, "%*s %d %d", &codigo, &prioridade);
+            if (adicionarReservaHeap(heap, codigo, prioridade)) {
+                printf("Reserva da sala %d adicionada com prioridade %d.\n", codigo, prioridade);
+                fprintf(saida, "Reserva da sala %d adicionada com prioridade %d.\n", codigo, prioridade);
+            } else {
+                printf(saida, "Erro ao reservar sala %d.\n", codigo);
+                fprintf(saida, "Erro ao reservar sala %d.\n", codigo);
+            }
+        }
+        else if (strcmp(comando, "BLOQUEAR_SALA") == 0) {
+            fscanf(entrada, "%*s %d", &codigo);
+            if (alterarEstadoHash(hash, codigo, "bloqueada")) {
+                printf(saida, "Sala %d bloqueada.\n", codigo);
+                fprintf(saida, "Sala %d bloqueada.\n", codigo);
+            } else {
+                printf("Erro ao bloquear sala %d.\n", codigo);
+                fprintf(saida, "Erro ao bloquear sala %d.\n", codigo);
+            }
+        }
+        else if (strcmp(comando, "DESBLOQUEAR_SALA") == 0) {
+            fscanf(entrada, "%*s %d", &codigo);
+            if (alterarEstadoHash(hash, codigo, "disponivel")) {
+                printf("Sala %d desbloqueada.\n", codigo);
+                fprintf(saida, "Sala %d desbloqueada.\n", codigo);
+            } else {
+                printf("Erro ao desbloquear sala %d.\n", codigo);
+                fprintf(saida, "Erro ao desbloquear sala %d.\n", codigo);
+            }
+        }
+        else if (strcmp(comando, "CANCELAR_RESERVA") == 0) {
+            fscanf(entrada, "%*s %d", &codigo);
+            if (removerReservaHeap(heap, codigo)) {
+                printf("Reserva da sala %d cancelada.\n", codigo);
+                fprintf(saida, "Reserva da sala %d cancelada.\n", codigo);
+            } else {
+                printf("Erro ao cancelar reserva da sala %d.\n", codigo);
+                fprintf(saida, "Erro ao cancelar reserva da sala %d.\n", codigo);
+            }
+        }
+        else if (strcmp(comando, "CONSULTAR_SALA") == 0) {
+            fscanf(entrada, "%*s %d", &codigo);
+            consultarSalaAVL(saida, avl, codigo);
+        }
+        else if (strcmp(comando, "LISTAR_SALAS") == 0) {
+            listarSalasAVL(saida, avl);
+        }
+        else {
+            printf("Comando desconhecido: %s\n", comando);
+            fprintf(saida, "Comando desconhecido: %s\n", comando);
+        }
+    }
 }
 
 void encerrarSistema(No* raizAVL, MaxHeap* heap, HashTabela* tabelaHash) {
