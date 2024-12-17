@@ -13,6 +13,7 @@
 #include "hash.h"
 
 No* criarNo(int codigoSala, int capacidade);
+void encerrarSistema(No* raizAVL, MaxHeap* heap, HashTabela* tabelaHash);
 
 //Funcoes por arvore
 //(é utilizada para organizar e armazenar as informações das salas de forma balanceada, busca inserção e remoção eficiente)
@@ -56,4 +57,15 @@ No* criarNo(int codigoSala, int capacidade) {
     novoNo->direita = NULL;
     novoNo->esquerda = NULL;
     return novoNo;
+}
+
+void encerrarSistema(No* raizAVL, MaxHeap* heap, HashTabela* tabelaHash) {
+    printf("Encerrando o sistema e liberando recursos...\n");
+    // Libera a árvore AVL
+    liberarAVL(raizAVL);
+    // Libera a heap de prioridades
+    liberarHeap(heap);
+    // Libera a tabela hash
+    liberarHash(tabelaHash);
+    printf("Todos os recursos foram liberados. Encerrando o sistema.\n");
 }

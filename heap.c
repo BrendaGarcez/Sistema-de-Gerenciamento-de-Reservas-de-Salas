@@ -15,3 +15,11 @@ void atualizarPrioridadeHeap() {
 void listarReservaHeap() {
     printf("Função para listar reservas na heap ainda não implementada.\n");
 }
+
+MaxHeap* criarMaxHeap(int capacidade) {
+    MaxHeap* heap = (MaxHeap*)malloc(sizeof(MaxHeap));
+    heap->itens = (Reserva*)malloc(capacidade * sizeof(Reserva));
+    heap->tamanho = 0;
+    heap->capacidade = capacidade;
+    return heap;
+}
