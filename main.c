@@ -9,11 +9,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+// Inclusão de bibliotecas para AVL, Heap e Hash
 #include "avl.h"
 #include "heap.h"
 #include "hash.h"
 
-No* criarNo(int codigoSala, int capacidade);
 void encerrarSistema(No* raizAVL, MaxHeap* heap, HashTabela* tabelaHash);
 
 //Funcoes por arvore
@@ -41,32 +42,33 @@ void encerrarSistema(); //Remover todas as informaçoes das salas e reservas ant
 
 
 int main() {
-    printf("Ola, Mundo!\n");
-    return 0;
-}
 
-No* criarNo(int codigoSala, int capacidade) {
-    No* novoNo = (No*)malloc(sizeof(No));
-    if (novoNo == NULL) {
-        printf("Erro ao alocar memória.\n");
-        exit(1);
+    FILE *entrada, *saida;
+
+    entrada = fopen("entrada1.txt", "r");
+    if (!entrada) {
+        printf("Erro ao abrir arquivo de entrada.\n");
+        return 1;
     }
-    novoNo->codigoSala = codigoSala;
-    novoNo->capacidade = capacidade;
-    novoNo->altDireita = 0;
-    novoNo->altEsquerda = 0;
-    novoNo->direita = NULL;
-    novoNo->esquerda = NULL;
-    return novoNo;
+    saida = fopen("saida.txt", "w");
+    if (!saida) {
+        printf("Erro ao abrir arquivo de saída.\n");
+        fclose(entrada);
+        return 1;
+    }
+
+    printf("teste!\n");
+    getchar();  // Aguarda a entrada do usuário
+    return 0;
 }
 
 void encerrarSistema(No* raizAVL, MaxHeap* heap, HashTabela* tabelaHash) {
     printf("Encerrando o sistema e liberando recursos...\n");
     // Libera a árvore AVL
-    //liberarAVL(raizAVL);
+    liberarAVL(raizAVL);
     // Libera a heap de prioridades
-    //liberarHeap(heap);
+    liberarHeap(heap);
     // Libera a tabela hash
-    //liberarHash(tabelaHash);
+    liberarHash(tabelaHash);
     printf("Todos os recursos foram liberados. Encerrando o sistema.\n");
 }

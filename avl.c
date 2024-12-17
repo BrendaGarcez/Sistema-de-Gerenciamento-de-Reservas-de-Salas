@@ -68,6 +68,21 @@ void listarSalaAVL() {
     printf("Função para listar salas AVL ainda não implementada.\n");
 }
 
+No* criarNo(int codigoSala, int capacidade) {
+    No* novoNo = (No*)malloc(sizeof(No));
+    if (novoNo == NULL) {
+        printf("Erro ao alocar memória.\n");
+        exit(1);
+    }
+    novoNo->codigoSala = codigoSala;
+    novoNo->capacidade = capacidade;
+    novoNo->altDireita = 0;
+    novoNo->altEsquerda = 0;
+    novoNo->direita = NULL;
+    novoNo->esquerda = NULL;
+    return novoNo;
+}
+
 No* rotacaoEsquerda(No* no) {
     No *aux1, *aux2;
     aux1 = no->direita;
@@ -145,8 +160,9 @@ No* balanceamento(No* no) {
     }
 }
 void liberarAVL(No* raiz) {
-    if (raiz == NULL) return;
-    liberarAVL(raiz->esquerda);
-    liberarAVL(raiz->direita);
-    free(raiz);
+    if (raiz != NULL) {
+        liberarAVL(raiz->esquerda);
+        liberarAVL(raiz->direita);
+        free(raiz);
+    }
 }

@@ -10,6 +10,7 @@ typedef struct No {
     struct No* esquerda;
 } No;
 
+No* criarNo(int codigoSala, int capacidade);
 No* inserirNoAVL(No* raiz, int codigoSala, int capacidade);
 void inserirSalaAVL();
 void removerSalaAVL();
