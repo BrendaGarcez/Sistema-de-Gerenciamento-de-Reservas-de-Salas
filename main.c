@@ -8,6 +8,7 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "avl.h"
 #include "heap.h"
 #include "hash.h"
