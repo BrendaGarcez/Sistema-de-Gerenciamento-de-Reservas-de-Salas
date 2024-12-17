@@ -144,3 +144,9 @@ No* balanceamento(No* no) {
         return no;
     }
 }
+void liberarAVL(No* raiz) {
+    if (raiz == NULL) return;
+    liberarAVL(raiz->esquerda);
+    liberarAVL(raiz->direita);
+    free(raiz);
+}

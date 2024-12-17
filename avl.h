@@ -18,6 +18,7 @@ void listarSalaAVL();
 No* rotacaoEsquerda(No* no);
 No* rotacaoDireita(No* no);
 No* balanceamento(No* no);
+void liberarAVL(No* raiz);
 
 
 #endif

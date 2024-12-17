@@ -17,5 +17,6 @@ void adicionarReservaHeap();
 void atualizarPrioridadeHeap();
 void listarReservaHeap();
 MaxHeap* criarMaxHeap(int capacidade);
+void liberarHeap(MaxHeap* heap);
 
 #endif

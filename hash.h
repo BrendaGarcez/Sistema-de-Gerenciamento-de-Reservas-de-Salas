@@ -17,5 +17,6 @@ void bloquearSalaHash();
 void desbloquearSalaHash();
 void consultarEstadoHash();
 HashTabela* criarTabelaHash(int tamanho);
+void liberarHash(HashTabela* tabela);
 
 #endif

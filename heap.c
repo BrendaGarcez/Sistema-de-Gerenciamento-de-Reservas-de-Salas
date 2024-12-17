@@ -23,3 +23,8 @@ MaxHeap* criarMaxHeap(int capacidade) {
     heap->capacidade = capacidade;
     return heap;
 }
+void liberarHeap(MaxHeap* heap) {
+    if (heap == NULL) return;
+    free(heap->itens); // libera o vetor de elementos
+    free(heap); // libera a estrutura principal
+}

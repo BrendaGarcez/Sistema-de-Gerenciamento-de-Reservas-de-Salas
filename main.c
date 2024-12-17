@@ -62,10 +62,10 @@ No* criarNo(int codigoSala, int capacidade) {
 void encerrarSistema(No* raizAVL, MaxHeap* heap, HashTabela* tabelaHash) {
     printf("Encerrando o sistema e liberando recursos...\n");
     // Libera a árvore AVL
-    liberarAVL(raizAVL);
+    //liberarAVL(raizAVL);
     // Libera a heap de prioridades
-    liberarHeap(heap);
+    //liberarHeap(heap);
     // Libera a tabela hash
-    liberarHash(tabelaHash);
+    //liberarHash(tabelaHash);
     printf("Todos os recursos foram liberados. Encerrando o sistema.\n");
 }

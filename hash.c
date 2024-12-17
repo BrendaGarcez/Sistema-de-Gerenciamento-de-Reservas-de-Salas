@@ -24,3 +24,12 @@ HashTabela* criarTabelaHash(int tamanho) {
     tabela->tamanho = tamanho;
     return tabela;
 }
+void liberarHash(HashTabela* tabela) {
+    for (int i = 0; i < tabela->tamanho; i++) {
+        if (tabela->entradas[i] != NULL) {
+            free(tabela->entradas[i]); // libera cada sala na tabela
+        }
+    }
+    free(tabela->entradas);
+    free(tabela);
+}
