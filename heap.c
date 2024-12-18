@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "heap.h"
+#include "hash.h"
+#include "avl.h"
 
 // Função para adicionar uma reserva na heap
 void adicionarReservaHeap() {

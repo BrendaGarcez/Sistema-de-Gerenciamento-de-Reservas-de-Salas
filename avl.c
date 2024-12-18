@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "avl.h"
-
+#include "hash.h"
+#include "heap.h"
 
 No* criarNo(int codigoSala, int capacidade) {
     No* novoNo = (No*)malloc(sizeof(No));
@@ -66,13 +66,92 @@ No* inserirSalaAVL(No* raiz, int codigoSala, int capacidade) {
 }
 
 // Função para remover uma sala da árvore AVL
-void removerSalaAVL() {
-    printf("Função para remover sala AVL ainda não implementada.\n");
+No* removerSalaAVL(No* raiz, int codigoSala, HashTabela* hash, MaxHeap* heap) {
+    if (raiz == NULL) {
+        printf("Sala com código %d não encontrada.\n", codigoSala);
+        return NULL;
+    }
+
+    if (codigoSala == raiz->codigoSala) {
+        //  Remover da tabela hash
+        if (removerEstadoHash(hash, codigoSala)) {
+            printf("Sala %d removida da tabela hash.\n", codigoSala);
+        } else {
+            printf("Erro ao remover sala %d da tabela hash.\n", codigoSala);
+        }
+
+        //  Remover da heap de prioridades
+        if (removerReservaHeap(heap, codigoSala)) {
+            printf("Sala %d removida da heap de prioridades.\n", codigoSala);
+        } else {
+            printf("Sala %d não estava na heap de prioridades.\n", codigoSala);
+        }
+
+        //  Remoção na AVL
+        if (raiz->esquerda == NULL && raiz->direita == NULL) {
+            free(raiz);
+            return NULL;
+        } else if (raiz->esquerda == NULL) {
+            No* aux = raiz->direita;
+            free(raiz);
+            return aux;
+        } else if (raiz->direita == NULL) {
+            No* aux = raiz->esquerda;
+            free(raiz);
+            return aux;
+        } else {
+            // Encontrar o sucessor em ordem
+            No* sucessor = raiz->direita;
+            while (sucessor->esquerda != NULL) {
+                sucessor = sucessor->esquerda;
+            }
+            raiz->codigoSala = sucessor->codigoSala;
+            raiz->capacidade = sucessor->capacidade;
+
+            raiz->direita = removerSalaAVL(raiz->direita, sucessor->codigoSala, hash, heap);
+        }
+    } else if (codigoSala < raiz->codigoSala) {
+        raiz->esquerda = removerSalaAVL(raiz->esquerda, codigoSala, hash, heap);
+    } else {
+        raiz->direita = removerSalaAVL(raiz->direita, codigoSala, hash, heap);
+    }
+
+    // Organizar altura dos nós
+    if (raiz->esquerda != NULL) {
+        raiz->altEsquerda = (raiz->esquerda->altEsquerda > raiz->esquerda->altDireita
+                                ? raiz->esquerda->altEsquerda
+                                : raiz->esquerda->altDireita) +
+                            1;
+    } else {
+        raiz->altEsquerda = 0;
+    }
+
+    if (raiz->direita != NULL) {
+        raiz->altDireita = (raiz->direita->altDireita > raiz->direita->altEsquerda
+                                ? raiz->direita->altDireita
+                                : raiz->direita->altEsquerda) +
+                            1;
+    } else {
+        raiz->altDireita = 0;
+    }
+
+    // Balancear a árvore
+    return balanceamento(raiz);
 }
 
 // Função para buscar uma sala na árvore AVL
-void buscarSalaAVL() {
-    printf("Função para buscar sala AVL ainda não implementada.\n");
+No *buscarSalaAVL(No *raiz, int codigoSala) {
+    if (raiz == NULL) {
+        return raiz;
+    }
+    if(raiz->codigoSala == codigoSala){
+        return raiz;
+    }
+    if (codigoSala < raiz->codigoSala) {
+        return buscarSalaAVL(raiz->esquerda, codigoSala);
+    } else {
+        return buscarSalaAVL(raiz->direita, codigoSala);
+    }
 }
 
 // Função para listar as salas em ordem crescente

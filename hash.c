@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "hash.h"
+#include "heap.h"
+#include "avl.h"
 
 // Função para bloquear uma sala
 void bloquearSalaHash() {
