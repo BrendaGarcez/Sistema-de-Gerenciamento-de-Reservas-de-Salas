@@ -15,7 +15,7 @@
 #include "heap.h"
 #include "hash.h"
 
-void menu(FILE *entrada, FILE *saida, No *avl, Sala *heap, HashTabela *hash);
+void menu(FILE *entrada, FILE *saida, No *avl  /*,Sala *heap, HashTabela *hash*/);
 void encerrarSistema(No* raizAVL, MaxHeap* heap, HashTabela* tabelaHash);
 
 //Funcoes por arvore
@@ -64,12 +64,12 @@ int main() {
     HashTabela *hash = NULL;
 
     // Processar operações
-    menu(entrada, saida, avl, heap, hash);
+    menu(entrada, saida, avl/*, heap, hash*/ );
 
     // Encerrar e liberar memória
     liberarAVL(avl);
-    liberarHeap(heap);
-    liberarHashTable(hash);
+    //liberarHeap(heap);
+    //liberarHashTable(hash);
 
     fclose(entrada);
     fclose(saida);
@@ -78,7 +78,7 @@ int main() {
     return 0;
 }
 
-void menu(FILE *entrada, FILE *saida, No *avl, Sala *heap, HashTabela *hash) {
+void menu(FILE *entrada, FILE *saida, No *avl/*, Sala *heap,HashTabela *hash*/ ) {
 
     char comando[30];
     int codigo, capacidade, prioridade;
@@ -91,7 +91,7 @@ void menu(FILE *entrada, FILE *saida, No *avl, Sala *heap, HashTabela *hash) {
             if (inserirSalaAVL(avl, codigo, capacidade)) {
                 printf("Sala %d criada com sucesso.\n", codigo);
                 fprintf(saida, "Sala %d criada com sucesso.\n", codigo);
-                inserirEstadoHash(hash, codigo, "disponivel");
+                //inserirEstadoHash(hash, codigo, "disponivel");
             } else {
                 printf("Erro ao criar sala %d.\n", codigo);
                 fprintf(saida, "Erro ao criar sala %d.\n", codigo);
@@ -99,50 +99,50 @@ void menu(FILE *entrada, FILE *saida, No *avl, Sala *heap, HashTabela *hash) {
         }
         else if (strcmp(comando, "RESERVAR_SALA") == 0) {
             fscanf(entrada, "%*s %d %d", &codigo, &prioridade);
-            if (adicionarReservaHeap(heap, codigo, prioridade)) {
+            /*if (adicionarReservaHeap(heap, codigo, prioridade)) {
                 printf("Reserva da sala %d adicionada com prioridade %d.\n", codigo, prioridade);
                 fprintf(saida, "Reserva da sala %d adicionada com prioridade %d.\n", codigo, prioridade);
             } else {
                 printf("Erro ao reservar sala %d.\n", codigo);
                 fprintf(saida, "Erro ao reservar sala %d.\n", codigo);
-            }
+            }*/
         }
         else if (strcmp(comando, "BLOQUEAR_SALA") == 0) {
             fscanf(entrada, "%*s %d", &codigo);
-            if (alterarEstadoHash(hash, codigo, "bloqueada")) {
+            /*if (alterarEstadoHash(hash, codigo, "bloqueada")) {
                 printf("Sala %d bloqueada.\n", codigo);
                 fprintf(saida, "Sala %d bloqueada.\n", codigo);
             } else {
                 printf("Erro ao bloquear sala %d.\n", codigo);
                 fprintf(saida, "Erro ao bloquear sala %d.\n", codigo);
-            }
+            }*/
         }
         else if (strcmp(comando, "DESBLOQUEAR_SALA") == 0) {
             fscanf(entrada, "%*s %d", &codigo);
-            if (alterarEstadoHash(hash, codigo, "disponivel")) {
+            /*if (alterarEstadoHash(hash, codigo, "disponivel")) {
                 printf("Sala %d desbloqueada.\n", codigo);
                 fprintf(saida, "Sala %d desbloqueada.\n", codigo);
             } else {
                 printf("Erro ao desbloquear sala %d.\n", codigo);
                 fprintf(saida, "Erro ao desbloquear sala %d.\n", codigo);
-            }
+            }*/
         }
         else if (strcmp(comando, "CANCELAR_RESERVA") == 0) {
             fscanf(entrada, "%*s %d", &codigo);
-            if (removerReservaHeap(heap, codigo)) {
+            /*if (removerReservaHeap(heap, codigo)) {
                 printf("Reserva da sala %d cancelada.\n", codigo);
                 fprintf(saida, "Reserva da sala %d cancelada.\n", codigo);
             } else {
                 printf("Erro ao cancelar reserva da sala %d.\n", codigo);
                 fprintf(saida, "Erro ao cancelar reserva da sala %d.\n", codigo);
-            }
+            }*/
         }
         else if (strcmp(comando, "CONSULTAR_SALA") == 0) {
             fscanf(entrada, "%*s %d", &codigo);
-            consultarSalaAVL(saida, avl, codigo);
+            //consultarSalaAVL(saida, avl, codigo);
         }
         else if (strcmp(comando, "LISTAR_SALAS") == 0) {
-            listarSalasAVL(saida, avl);
+            //listarSalasAVL(saida, avl);
         }
         else {
             printf("Comando desconhecido: %s\n", comando);
