@@ -1,0 +1,33 @@
+# depslib dependency file v1.0
+1737499177 source:c:\users\brend\desktop\sistema-de-gerenciamento-de-reservas-de-salas\avl.c
+	<stdio.h>
+	<stdlib.h>
+	"avl.h"
+
+1737498048 c:\users\brend\desktop\sistema-de-gerenciamento-de-reservas-de-salas\avl.h
+
+1737499371 source:c:\users\brend\desktop\sistema-de-gerenciamento-de-reservas-de-salas\hash.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"hash.h"
+	"avl.h"
+
+1737499389 c:\users\brend\desktop\sistema-de-gerenciamento-de-reservas-de-salas\hash.h
+	"avl.h"
+
+1737500882 source:c:\users\brend\desktop\sistema-de-gerenciamento-de-reservas-de-salas\heap.c
+	<stdio.h>
+	<stdlib.h>
+	"heap.h"
+
+1737498947 c:\users\brend\desktop\sistema-de-gerenciamento-de-reservas-de-salas\heap.h
+
+1737500520 source:c:\users\brend\desktop\sistema-de-gerenciamento-de-reservas-de-salas\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"avl.h"
+	"heap.h"
+	"hash.h"
+
