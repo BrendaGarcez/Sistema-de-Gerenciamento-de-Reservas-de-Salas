@@ -47,7 +47,3 @@ O resultado das operações é salvo no arquivo `saida.txt`, contendo logs detal
    ./reservas entrada.txt
    ```  
 3. O resultado será gerado no arquivo `saida.txt`.  
-
-## 📄 Documentação  
-O código contém comentários explicativos sobre as funções e estruturas utilizadas. Consulte a implementação para mais detalhes.  
-```
